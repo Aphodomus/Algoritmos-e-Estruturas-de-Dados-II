@@ -1,0 +1,8 @@
+1
+5,300000
+X
+true
+Algoritmos
+Daniel Vitor de Oliveira Santos
+Ola, esse e um teste
+75258677
