@@ -40,7 +40,7 @@ public class unidade01dExercicio02 {
     }
 
     public static void main(String[] args) {
-        int []array = gerarVetor(18);
+        int []array = gerarVetor(6);
         selectSort(array);
         System.out.println(Arrays.toString(array));
         
@@ -50,6 +50,7 @@ public class unidade01dExercicio02 {
 /**
  * O algoritmo realiza  3(n – 1) movimentações, ou seja, 3(18 - 1) = 51 movimentações
  * O algoritmo realiza (n - i - 1) comparações
+ * n(n-1) = n^2 - n
  * 
  * 
  * 

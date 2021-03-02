@@ -23,7 +23,7 @@ public class unidade01dExercicio01 {
 
     public static void selectSort(int array[]) {
         int mov = 0;
-        for (int i = 0; i < array.length; i = i + 1) {
+        for (int i = 0; (i < array.length - 1); i = i + 1) {
             int menor = i;
             for (int j = i + 1; j < array.length; j = j + 1) {
                 if (array[j] < array[menor]) {
@@ -50,7 +50,9 @@ public class unidade01dExercicio01 {
  * (Obs.2): No final, o elemento da posição (n-1) será o maior, pois os (n-1) menores elementos já foram separados
  * 
  * Quantas movimentações entre elementos do array sao realizadas ?
- * 3(n-1) 
+ * 3(n-1)
+ * 
+ * Pq 3 ? pq dentro do swap ele faz 3 movimentações
  * 
  * Quantas comparações entre elementos do array sao realizadas ?
  * (n - i - 1);

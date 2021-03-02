@@ -10,7 +10,7 @@ public class unidade01cExercicio05 {
 
         while (esq <= dir) {
             meio = (esq + dir) / 2;
-            if (array[meio] <= x) {
+            if (x >= array[meio]) {
                 esq = meio + 1;
             } else {
                 dir = meio - 1;
@@ -23,17 +23,19 @@ public class unidade01cExercicio05 {
                 return resp;
             }
         }
+
         return resp;
     }
     public static void main(String[] args) {
         int[] array = new int[12];
 
         for (int i = 0; i < array.length; i = i + 1) {
-            array[i] = i*2;
+            array[i] = i;
         }
 
-        int procurar = 18;
+        int procurar = 3;
 
+        
         boolean resp = pesquisaBinaria(array, procurar, array.length);
 
         MyIO.println("Valor encontrado: " + resp);
