@@ -1,0 +1,1 @@
+Matricula: 716417	Tempo: 13.787s 	Comparacoes: 17070250	Movimentos: 5049
