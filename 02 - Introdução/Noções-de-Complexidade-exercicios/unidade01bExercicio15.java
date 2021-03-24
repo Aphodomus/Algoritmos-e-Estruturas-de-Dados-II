@@ -2,9 +2,12 @@
 
 public class unidade01bExercicio15 {
     public static void main(String[] args) {
+        int a = 0;
+        int n = 3;
         for (int i = n - 7; i >= 1; i--)
             for (int j = 0; j < n; j++)
                 a *= 2;
+                System.out.println("aa");
 
     }
 }

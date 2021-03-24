@@ -119,11 +119,66 @@ Musica new_Musica_two (char id[], char nome[], char key[], char artists[], char 
     return m1;
 }
 
+//Faz um malloc para armazenar espaco na memoria
+char* defineMemoryForString(){
+    char* string = (char*) calloc(1000, sizeof(char));
+
+    return string;
+}
+
+//Formatar a data
+char* organizeDate(char* string) {
+    char* novaData1 = defineMemoryForString();
+    char* novaData2 = defineMemoryForString();
+    char* resp = defineMemoryForString();
+    const char delimeter[4] = "-";
+
+    if (strlen(string) > 5) {
+        char** dateFinal = (char**) malloc(1000 * sizeof(char*));
+        char* tmp = (char*) malloc(100 * sizeof(char));
+        tmp = strtok(string, delimeter);
+
+        int w = 0;
+        while (tmp != NULL) { 
+            dateFinal[w++] = tmp;
+            tmp = strtok(NULL, delimeter);
+        }
+
+        strcat(resp, dateFinal[2]);
+        strcat(resp, "/");
+        strcat(resp, dateFinal[1]);
+        strcat(resp, "/");
+        strcat(resp, dateFinal[0]);
+
+        free(dateFinal);
+        free(tmp);
+        
+        return resp;
+    } else {
+        strcpy(novaData2, "01/01/");
+        int len = strlen(novaData2);
+        int j = 0;
+        for (int i = 0; i < strlen(string); i++) {
+            novaData2[len + j] = string[i];
+            j++;
+        }
+        return novaData2;
+    }
+}
+
 //Imprimir na tela os dados requiridos
 void imprimir(Musica *musica) {
+    char* dateOrganized = (char*) malloc(1000 * sizeof(char));
+
     printf("%s ## ", (*musica).id);
     printf("%s ## ", (*musica).artists);
     printf("%s ## ", (*musica).nome);
+
+    //Tratar a data da Musica
+    dateOrganized = (*musica).realease_date;
+    dateOrganized = organizeDate(dateOrganized);
+    strcpy((*musica).realease_date, dateOrganized);
+
     printf("%s ## ", (*musica).realease_date);
     printf("%G ## ", (*musica).acousticness);
     printf("%G ## ", (*musica).danceability);
@@ -137,13 +192,6 @@ void imprimir(Musica *musica) {
 }
 
 //------------------------------------------------------------- Metodos e funcoes utilizados na questao -------------------------
-
-//Faz um malloc para armazenar espaco na memoria
-char* defineMemoryForString(){
-    char* string = (char*) calloc(1000, sizeof(char));
-
-    return string;
-}
 
 //Limpar caracteres inuteis na string
 void cleanString(char* string) {
@@ -201,46 +249,6 @@ char* processData(char* dado){
     }
     
     return dado_tratado;
-}
-
-//Formatar a data
-char* organizeDate(char* string) {
-    char* novaData1 = defineMemoryForString();
-    char* novaData2 = defineMemoryForString();
-    char* resp = defineMemoryForString();
-    const char delimeter[4] = "-";
-
-    if (strlen(string) > 5) {
-        char** dateFinal = (char**) malloc(1000 * sizeof(char*));
-        char* tmp = (char*) malloc(100 * sizeof(char));
-        tmp = strtok(string, delimeter);
-
-        int w = 0;
-        while (tmp != NULL) { 
-            dateFinal[w++] = tmp;
-            tmp = strtok(NULL, delimeter);
-        }
-
-        strcat(resp, dateFinal[2]);
-        strcat(resp, "/");
-        strcat(resp, dateFinal[1]);
-        strcat(resp, "/");
-        strcat(resp, dateFinal[0]);
-
-        free(dateFinal);
-        free(tmp);
-        
-        return resp;
-    } else {
-        strcpy(novaData2, "01/01/");
-        int len = strlen(novaData2);
-        int j = 0;
-        for (int i = 0; i < strlen(string); i++) {
-            novaData2[len + j] = string[i];
-            j++;
-        }
-        return novaData2;
-    }
 }
 
 //Funcao principal, faz a maioria das coisas para solucionar a questao
