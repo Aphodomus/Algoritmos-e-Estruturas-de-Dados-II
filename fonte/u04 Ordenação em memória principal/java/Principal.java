@@ -15,11 +15,11 @@ class Principal {
       //Inicializacao do algoritmo de ordenacao
       //algoritmo = new Bolha(n);
       //algoritmo = new Countingsort(n);
-      //algoritmo = new Heapsort(n);
+      algoritmo = new Heapsort(n);
       //algoritmo = new Insercao(n);
       //algoritmo = new Mergesort(n);
       //algoritmo = new Quicksort(n);
-      algoritmo = new Selecao(n);
+      //algoritmo = new Selecao(n);
       //algoritmo = new Shellsort(n);
 
 

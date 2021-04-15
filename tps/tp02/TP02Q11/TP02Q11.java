@@ -205,7 +205,7 @@ class Musica {
 
     //----------------------------------------------------- Funcoes e Metodos -----------------------------------------------------
     public void imprimir() {
-        MyIO.println(id + " ## " + getArtists() + " ## " + nome + " ## " + getRealeaseDate() + " ## " + acousticness + " ## " + danceability + " ## " + instrumentalness + " ## " + liveness + " ## " + loudness + " ## " + speechiness + " ## " + energy + " ## " + duration_ms + " ## " + popularity);
+        MyIO.println(id + " ## " + getArtists() + " ## " + nome + " ## " + getRealeaseDate() + " ## " + acousticness + " ## " + danceability + " ## " + instrumentalness + " ## " + liveness + " ## " + loudness + " ## " + speechiness + " ## " + energy + " ## " + duration_ms);
     }
 
     public boolean isFim(String s) {
@@ -280,7 +280,7 @@ public class TP02Q11 {
         String[] dataTreated = new String[20];
         Musica[] m = new Musica[tamanho];
         int i = 0;
-        Arq.openRead("data.csv", "UTF-8");
+        Arq.openRead("/tmp/data.csv", "UTF-8");
 
         data = Arq.readLine();
 
@@ -408,6 +408,7 @@ public class TP02Q11 {
         int comparasionsSelection = 0;
 
         for (int i = 1; i < n; i++) {
+            comparisons = comparisons + 1;
             tmp = music[i];
             int j = i - 1;
             while ((j >= 0) && (music[j].getId().compareTo(tmp.getId()) > 0)) {
@@ -416,10 +417,6 @@ public class TP02Q11 {
             }
             music[j + 1] = tmp;
         }
-
-        moves = (n*(n + 1) - 2)/2; //Numero de movimentos no pior caso
-        comparasionsSelection = ((n - 1)*n)/2; //Numero de comparacoes no pior caso
-        comparisons = comparisons + comparasionsSelection;
     }
 
     //Obter o maior valor
@@ -435,6 +432,34 @@ public class TP02Q11 {
         return maior;	
     }
 
+    //Metodo de ordenacao parcial qualquer
+    public static void ordenarIntervalo(Musica[] music, int comeco, int fim) {
+        Musica temp = new Musica();
+        int menor = 0;
+        int comparasionsSelection = 0;
+
+        comparisons = comparisons + 1;
+        for (int i = comeco; i <= (fim); i++) {
+            menor = i;
+            comparisons = comparisons + 1;
+            for (int j = (i + 1); j <= fim; j++) {
+                comparisons = comparisons + 1;
+                if (music[menor].getNome().compareTo(music[j].getNome()) > 0) {
+                    menor = j;
+                }
+            }
+            
+            //Trocar o menor elemento encontrado
+            comparisons = comparisons + 1;
+            if (menor != i) {
+                moves = moves + 1;
+                temp = music[i];
+                music[i] = music[menor];
+                music[menor] = temp;
+            }
+        }
+    }
+
     //Ordenar as musicas por meio do Counting Sort
     public static Musica[] sortByCountingSort(Musica[] music, int n) {
         // Array para contar o numero de ocorrencias de cada elemento
@@ -447,15 +472,39 @@ public class TP02Q11 {
         // Agora, o count[i] contem o numero de elemento iguais a i
         for (int i = 0; i < n; count[music[i].getPopularity()]++, i++);
 
-        //// Agora, o count[i] contem o numero de elemento menores ou iguais a i
-        for (int i = 1; i < count.length; count[i] += count[i - 1], i++);
+        // Agora, o count[i] contem o numero de elemento menores ou iguais a i
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
+        }
 
         // Ordenando
-        for (int i = n - 1; i >= 0; ordenado[count[music[i].getPopularity()] - 1] = music[i], count[music[i].getPopularity()]--, i--);
+        for (int i = n - 1; i >= 0; i--) {
+            moves = moves + 1;
+            ordenado[count[music[i].getPopularity()] - 1] = music[i];
+            count[music[i].getPopularity()]--;
+        }
         
         // Copiando para o array original
         for (int i = 0; i < n; i++) {
-            music[i] = ordenado[i];
+            if (i < ordenado.length - 1 && ordenado[i].getPopularity() == ordenado[i + 1].getPopularity()) {
+                int w = 1;
+                int contador = 0;
+
+                while (ordenado[i].getPopularity() == ordenado[i + w].getPopularity()) {
+                    comparisons = comparisons + 1;
+                    w++;
+                    contador = contador + 1;
+                }
+                comparisons = comparisons + 1;
+
+                ordenarIntervalo(ordenado, i, (i + contador));  
+
+                i = i + contador;
+            }
+        }
+
+        for (int b = 0; b < n; b++) {
+            music[b] = ordenado[b];
         }
 
         return music;

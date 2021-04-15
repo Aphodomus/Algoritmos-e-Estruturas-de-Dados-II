@@ -8,7 +8,7 @@ class Musica {
     private String nome = "";
     private String key = "";
     private String artists = "";
-    private Date realease_date = new Date();
+    private String realease_date = "";
     private double acousticness = 0.0;
     private double danceability = 0.0;
     private double energy = 0.0;
@@ -27,7 +27,7 @@ class Musica {
         //Padrao
     }
     
-    public Musica(String id, String nome, String key, String artists, Date realease_date, double acousticness, double danceability, double energy, int duration_ms, double instrumentalness, double valence, int popularity, float tempo, double liveness, double loudness, double speechiness, int year) {
+    public Musica(String id, String nome, String key, String artists, String realease_date, double acousticness, double danceability, double energy, int duration_ms, double instrumentalness, double valence, int popularity, float tempo, double liveness, double loudness, double speechiness, int year) {
         this.id = id;
         this.nome = nome;
         this.key = key;
@@ -85,9 +85,24 @@ class Musica {
     }
 
     public String getRealeaseDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-        String strDate = formatter.format(this.realease_date);  
-        return strDate;
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+        //String strDate = formatter.format(this.realease_date);  
+        return this.realease_date;
+    }
+
+    public String getRealeaseDateInverted() {
+        String data = this.realease_date;
+        String finalData = "";
+        
+        String temp1[] = new String[3];
+
+        temp1 = data.split("/");
+
+        finalData = finalData + temp1[2];
+        finalData = finalData + "/" + temp1[1];
+        finalData = finalData + "/" + temp1[0];
+
+        return finalData;
     }
 
     public void setRealeaseDate(String realease_date) {
@@ -100,8 +115,11 @@ class Musica {
 
             DateFormat formatBR2 = new SimpleDateFormat("MM/dd/yyyy");
             Date newDate = formatBR2.parse(strDate);
+            
+            SimpleDateFormat formatterFinal = new SimpleDateFormat("dd/MM/yyyy");  
+            String strDateFinal = formatterFinal.format(newDate);
 
-            this.realease_date = newDate;   
+            this.realease_date = strDateFinal;   
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -344,7 +362,6 @@ public class TP02Q09 {
         for (int k = 0; k < numEntrada; k++) {
             for (int j = 0; j < tamanho; j++) {
                 try {
-                    comparisons = comparisons + 1; // Contabilizando comparacao
                     if (m[j].getId().equals((id[k]))) {
                         result[w] = m[j];
                         w++;
@@ -422,7 +439,72 @@ public class TP02Q09 {
         comparisons = comparisons + comparasionsSelection;
     }
 
-    
+    //Converter árvore em uma estrutura heap
+    public static void heapify(Musica[] music, int n, int i) {
+        int maior = i; //Inicializar o maior como raiz
+        int esq = 2 * i ; //Esquerda = 2 * i + 1
+        int dir = 2 * i + 1; //Direita = 2 * i + 2
+
+        //Se o filho da esquerda for maior que a raiz
+        comparisons = comparisons + 1;
+        if (esq < n && music[esq].getRealeaseDateInverted().compareTo(music[maior].getRealeaseDateInverted()) == 0) {
+            comparisons = comparisons + 1;
+            if (music[esq].getNome().compareTo(music[maior].getNome()) > 0) {
+                maior = esq;
+            }
+        } else {
+            comparisons = comparisons + 1;
+            if (esq < n && music[esq].getRealeaseDateInverted().compareTo(music[maior].getRealeaseDateInverted()) > 0) {
+                maior = esq;
+            }
+        }
+
+        //Se o filho da direita for maior do que o maior ate agora
+        comparisons = comparisons + 1;
+        if (dir < n && music[dir].getRealeaseDateInverted().compareTo(music[maior].getRealeaseDateInverted()) == 0) {
+            comparisons = comparisons + 1;
+            if (music[dir].getNome().compareTo(music[maior].getNome()) > 0) {
+                maior = dir;
+            }
+        } else {
+            comparisons = comparisons + 1;
+            if (dir < n && music[dir].getRealeaseDateInverted().compareTo(music[maior].getRealeaseDateInverted()) > 0) {
+                maior = dir;
+            }
+        }
+
+        //Se o maior nao e a raiz
+        comparisons = comparisons + 1;
+        if (maior != i) {
+            moves = moves + 3;
+            Musica swap = music[i];
+            music[i] = music[maior];
+            music[maior] = swap;
+
+            //Montar recursivamente a subarvore
+            heapify(music, n, maior);
+        }
+    }
+
+    public static void sortByHeapSort(Musica[] music, int n) {
+        //Construir heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            comparisons = comparisons + 1;
+            heapify(music, n, i);
+        }
+
+        //Extrair um por um dos elementos da pilha
+        for (int i = n - 1; i > 0; i--) {
+            comparisons = comparisons + 1;
+            //Mover a raiz atual para o fim do array
+            Musica temp = music[0];
+            music[0] = music[i];
+            music[i] = temp;
+
+            //chamar heap reduzido
+            heapify(music, i, 0);
+        }
+    }
 
     //Criar o log
     public static void createLog(Tempo tempo) {
@@ -436,7 +518,6 @@ public class TP02Q09 {
     public static void main(String[] args) {
         //iniciar o temporizador
         Tempo time = new Tempo();
-        time.start();
 
         //Declarando variaveis
         int quantidadeMusica = 100;
@@ -455,12 +536,9 @@ public class TP02Q09 {
         //Procurar as musicas e retornar elas
         music = searchIdInReturnArrayMusic(entrada, i);
 
-        for (int m = 0; m < i; m++) {
-            MyIO.println(music[m].getDurationMs());
-        }
-
         //Organizar as musicas pelo nome
-        sortByCountingSort(music, quantidadeMusica);
+        time.start();
+        sortByHeapSort(music, quantidadeMusica);
         
         //Imprimir as informacoes da musica agora ordenada
         for (int m = 0; m < 100; m++) {

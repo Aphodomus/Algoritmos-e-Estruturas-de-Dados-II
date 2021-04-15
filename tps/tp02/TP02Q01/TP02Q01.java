@@ -253,6 +253,7 @@ public class TP02Q01 {
         String resp[] = new String[20];
 
         resp = data.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        
         return resp;
     }
 

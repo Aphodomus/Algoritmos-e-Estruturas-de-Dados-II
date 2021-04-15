@@ -17,7 +17,7 @@ public class InsertionSortBinary {
         return binarySearch(array, procurar, esquerda, meio - 1);
     }
     
-    public static void insertionSort(int[] array) {
+    public static void insertionSortBinary(int[] array) {
         int n = array.length;
         int local = 0;
 
@@ -48,11 +48,13 @@ public class InsertionSortBinary {
             array[k] = k - 23;
         }
 
+        MyIO.println("\nDesordenado: \n");
+
         for (int m = 0; m < array.length; m++) {
             MyIO.println(array[m]);
         }
 
-        insertionSort(array);
+        insertionSortBinary(array);
         MyIO.println("\nOrdenado: \n");
         for (int p = 0; p < array.length; p++) {
             MyIO.println(array[p]);
@@ -61,10 +63,6 @@ public class InsertionSortBinary {
 }
 
 /**
- * 
- * Quando os elementos estão ordenados de forma decrescente tanto o
-Seleção como o Inserção realizam comparações.
-Nesse caso, qual dos dois algoritmos executará mais rápido? Justifique sua
-resposta
-O algoritmo de Select seria melhor, pois ele vai fazer menos movimentações se comparado ao Insertion
+Comparações = C(n) = TETO log(n)
+Complexidade = O(n^2)
  */

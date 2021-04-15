@@ -568,6 +568,14 @@ void sortByQuickSort(Musica *music, int esq, int dir) {
             i++;
             j--;
         }
+
+        swap (char** musica, int i, int j) {
+            Musica *aux = (Musica*) malloc(1 * sizeof(Musica));
+            aux[0] = musica1[i];
+            musica[i] = musica[j];
+            musica[j] = aux[0];
+        }
+
     }
     free(pivo);
     if (esq < j) {

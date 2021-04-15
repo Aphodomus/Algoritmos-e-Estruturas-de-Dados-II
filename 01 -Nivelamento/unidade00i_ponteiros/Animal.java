@@ -1,8 +1,8 @@
 public class Animal {
     //Atributos
-    private String nome;
-    private int idade;
-    private int caracter;
+    public String nome;
+    public int idade;
+    public int caracter;
 
     //Metodos especiais
     public Animal() {
