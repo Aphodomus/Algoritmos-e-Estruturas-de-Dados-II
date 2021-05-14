@@ -7,6 +7,7 @@
 
 public class QueueADT {
     public static void main(String[] args) throws Exception {
+        //No maximo suporta 6 elementos
         System.out.println("==== FILA ESTATICA ====");
         Fila fila = new Fila();
         int x1, x2, x3;
@@ -58,6 +59,11 @@ public class QueueADT {
         fila.mostrar();
 
         x1 = fila.remover();
+        
+        fila.inserir(7);
+        fila.inserir(8);
+        fila.inserir(9);
+        
 
         System.out.println("Apos remocao (" + x1 + "): ");
         fila.mostrar();

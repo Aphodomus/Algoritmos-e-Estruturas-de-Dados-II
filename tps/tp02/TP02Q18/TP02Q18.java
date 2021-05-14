@@ -307,6 +307,7 @@ public class TP02Q18 {
     public static String[] processData(String data) {
         String resp[] = new String[20];
 
+        
         resp = data.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         return resp;
     }

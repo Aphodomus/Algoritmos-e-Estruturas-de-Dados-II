@@ -5,7 +5,8 @@ public class Celula {
 
     // Metodos especiais
     public Celula() {
-        this(0);
+        this.elemento = 0;
+        this.prox = null;
     }
 
     public Celula(int x) {

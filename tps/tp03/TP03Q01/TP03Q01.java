@@ -268,6 +268,158 @@ class Tempo {
     }
 }
 
+class ListaSequencial {
+    final static int tamanho = 170653;
+
+    // Atributos
+    private Musica[] arrayMusica; // Pode ser de qualquer outro tipo
+    private int n;
+
+    // Metodos especiais
+    public ListaSequencial() {
+        this.arrayMusica = Musica[tamanho]; // Tamanho padrao
+        this.n = 0;
+    }
+
+    public ListaSequencial(int tamanho) {
+        arrayMusica = new Musica[tamanho];
+        n = 0;
+    }
+
+    public Musica[] getArrayMusica() {
+        return this.arrayMusica;
+    }
+
+    public void setArrayMusica(Musica[] arrayMusica) {
+        this.arrayMusica = arrayMusica;
+    }
+
+    public int getTamanho() {
+        return this.n;
+    }
+
+    public void setTamanho(int n) {
+        this.n = n;
+    }
+
+    // Metodos
+
+    // Insere um elemento na primeira posicao da lista e move os demais elementos para o fim
+    public void inserirInicio(Musica x) throws Exception {
+        // Validar insercao
+        if (n >= arrayMusica.length) {
+            throw new Exception("Erro ao inserir !!!");
+        }
+
+        // Levar elementos para o fim do array
+        for (int i = n; i > 0; i--) {
+            arrayMusica[i] = arrayMusica[i - 1].clone();
+        }
+
+        // Coloca o elemento x na primeira posicao
+        arrayMusica[0] = x.clone();
+        n++;
+    }
+
+    // Insere um elemento na ultima posicao
+    public void inserirFim(Musica x) throws Exception {
+        // Validar insercao
+        if (n >= arrayMusica.length) {
+            throw new Exception("Erro ao inserir !!!");
+        }
+
+        // Coloca o elemento x na ultima posicao
+        arrayMusica[n] = x.clone();
+        n++;
+    }
+
+    // Insere um elemento na posicao especificada e move os demais para o fim
+    public void inserir(Musica x, int posicao) throws Exception {
+        // Validar insercao
+        if (n >= arrayMusica.length || posicao < 0 || posicao > n) {
+            throw new Exception("Erro ao inserir !!!");
+        }
+
+        // Levar elementos para o fim do array
+        for(int i = n; i > posicao; i--){
+            arrayMusica[i] = arrayMusica[i - 1].clone();
+        }
+
+        //Colocar o elemento na posicao especificada, apos mover os demais
+        arrayMusica[posicao] = x.clone();
+        n++;
+    }
+
+    // Remove um elemento da primeira posicao da lista e movimenta os demais para o inicio
+    public Musica removerInicio() throws Exception {
+        // Validar remocao
+        if (n == 0) {
+            throw new Exception("Erro ao remover, tamanho igual a zero !!!");
+        }
+
+        //Guarda o elemento da primeira posicao em resp, e diminui o tamanho do array para sinalizar que removeu
+        Musica resp = arrayMusica[0].clone();
+        n--;
+
+        for(int i = 0; i < n; i++){
+            arrayMusica[i] = arrayMusica[i + 1].clone();
+        }
+
+        return resp;
+    }
+
+    // Remove um elemento da ultima posicao
+    public Musica removerFim() throws Exception {
+        // Validar remocao
+        if (n == 0) {
+            throw new Exception("Erro ao remover, tamanho igual a zero !!!");
+        }
+
+        // Decrementa primeiro e depois devolve o valor
+        return arrayMusica[--n];
+    }
+
+    // Remove um elemento de uma posicao especifica e move os demais elementos para o inicio
+    public Musica remover(int posicao) throws Exception {
+        // Validar remocao
+        if (n == 0 || posicao < 0 || posicao >= n) {
+            throw new Exception("Erro ao remover !!!");
+        }
+
+        // Pega o elemento da posicao desejada e retira um do tamanho, para sinalizar que removeu
+        Musica resp = arrayMusica[posicao];
+        n--;
+
+        // Move os elementos para preencher o buraco do elemento removido
+        for(int i = posicao; i < n; i++){
+            arrayMusica[i] = arrayMusica[i + 1].clone();
+        }
+
+        return resp;
+    }
+
+    // Mostra os elementos da lista
+    public void mostrar (){
+    
+        for(int i = 0; i < n; i++){
+           MyIO.println("[" + i + "] " + arrayMusica[i].getId() + " ## " + arrayMusica[i].getArtists() + " ## " + arrayMusica[i].getNome() + " ## " + arrayMusica[i].getRealeaseDate() + " ## " + arrayMusica[i].getAcousticness() + " ## " + arrayMusica[i].getDanceability() + " ## " + arrayMusica[i].getInstrumentalness() + " ## " + arrayMusica[i].getLiveness() + " ## " + arrayMusica[i].getLoudness() + " ## " + arrayMusica[i].getSpeechiness() + " ## " + arrayMusica[i].getEnergy() + " ## " + arrayMusica[i].getDurationMs());
+        }
+
+    }
+
+    // Procura um elemento e retorna true or false se ele existe
+    public boolean pesquisar(Musica x) {
+        boolean resp = false;
+
+        // Faz uma busca sequencial para ver se encontra o valor
+        for (int i = 0; i < n && resp == false; i++) {
+            resp = (arrayMusica[i].equals(x));
+        }
+
+        return resp;
+    }
+}
+
 public class TP03Q01 {
     //Variaveis globais
     final static int tamanho = 170653;
@@ -307,6 +459,7 @@ public class TP03Q01 {
     public static String[] processData(String data) {
         String resp[] = new String[20];
 
+        
         resp = data.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         return resp;
     }
@@ -337,7 +490,7 @@ public class TP03Q01 {
     //Buscar os ids no arquivo, e retornar o dado caso encontrado
     public static Musica[] searchIdInReturnArrayMusic(String[] id, int numEntrada) {
         Musica[] m = new Musica[tamanho];
-        Musica[] result = new Musica[100];
+        Musica[] result = new Musica[numEntrada];
         m = createAllObject();
         int w = 0;
 
@@ -354,9 +507,28 @@ public class TP03Q01 {
             }
         }
 
-        Arq.close();
-
         return result;
+    }
+
+    //Buscar os ids no arquivo, e retornar as musicas encontradas correspondentes aos ids
+    public static ListaSequencial searchIdInReturnSequentialList(Musica[] musica, ListaSequencial lista, String[] id, int numEntrada) {
+        boolean achou = false;
+
+        for (int k = 0; k < numEntrada; k++) {
+            for (int j = 0; j < tamanho && achou == false; j++) {
+                try {
+                    if (musica[j].getId().equals((id[k]))) {
+                        lista.inserirFim(musica[j]);
+                        achou = true;
+                    }
+                } catch (Exception e) {
+                   
+                }
+            }
+            achou = false;
+        }
+
+        return lista;
     }
 
     //Fazer a pesquisa sequencial no arquivo
@@ -485,7 +657,6 @@ public class TP03Q01 {
     public static void sortBySelectionPartial(Musica[] music, int n) {
         Musica temp = new Musica();
         int menor = 0;
-        int comparasionsSelection = 0;
         for (int i = 0; i < (n - 1); i++) {
             menor = i;
             for (int j = (i + 1); j < n; j++) {
@@ -542,23 +713,86 @@ public class TP03Q01 {
 
     //Criar o log
     public static void createLog(Tempo tempo) {
-        Arq.openWrite("matricula_TP02Q15.txt");
+        Arq.openWrite("DadosQuestao01.txt");
 
-        Arq.println("Matricula: 716417\tTempo: "+ tempo.getTime() + "s \tComparacoes: " + comparisons + "\tMovimentos: " + moves);
+        Arq.println("Matricula: 716417\tTempo: "+ tempo.getTime());
 
         Arq.close();
     }
+
+    //Procurar uma musica
+    public static Musica procurarUmaMusica(Musica[] musica, String id) {
+        Musica music = new Musica();
+        boolean achou = false;
+        
+        for (int j = 0; j < tamanho && achou == false; j++) {
+            try {
+                if (musica[j].getId().equals((id))) {
+                    music = musica[j].clone();
+                    achou = true;
+                }
+            } catch (Exception e) {
+                
+            }
+        }
+
+        return music;
+    }
+
+    //Ler a linha, quebrar ela com um split e ver qual comando esta pedindo para ser executado, e executado.
+    public static ListaSequencial tratarComandos(String[] entrada, ListaSequencial lista, Musica[] musica, int tamanho) throws Exception {
+        for (int i = 0; i < entrada.length && i < tamanho; i++){
+            Musica music;
+            String[] linha = entrada[i].split(" ");
+
+            //Verificar qual dos comandos devera ser executado
+            switch (linha[0]) {
+                case "II":
+                    music = procurarUmaMusica(musica, linha[1]);
+                    lista.inserirInicio(music);
+                break;
+                case "IF":
+                    music = procurarUmaMusica(musica, linha[1]);
+                    lista.inserirFim(music);
+                break;
+                case "I*":
+                    music = procurarUmaMusica(musica, linha[2]);
+                    lista.inserir(music, Integer.parseInt(linha[1]));
+                break;
+                case "RI":
+                    music = lista.removerInicio();
+                    MyIO.println("(R) " + music.getNome());
+                break;
+                case "RF":
+                    music = lista.removerFim();
+                    MyIO.println("(R) " + music.getNome());
+                break;
+                case "R*":
+                    music = lista.remover(Integer.parseInt(linha[1]));
+                    MyIO.println("(R) " + music.getNome());
+                break;
+            
+                default:
+                break;
+            }
+        }
+
+        return lista;
+    }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //iniciar o temporizador
         Tempo time = new Tempo();
 
         //Declarando variaveis
-        int quantidadeMusica = 100;
-        Musica[] music = new Musica[quantidadeMusica];
         MyIO.setCharset("UTF-8");
-        String[] entrada = new String[101];
+        String[] entrada = new String[1000];
+        String[] entrada2 = new String[1000];
+        Musica[] m = new Musica[tamanho];
+        m = createAllObject();
         int i = -1;
+        int quantidade = 0;
+        int contador = 0;
 
         //Lendo a primeira parte da entrada
         do {
@@ -566,21 +800,34 @@ public class TP03Q01 {
             entrada[i] = "";
             entrada[i] = MyIO.readString();
         } while (!isFim(entrada[i]));
-    
-        //Procurar as musicas e retornar elas
-        music = searchIdInReturnArrayMusic(entrada, i);
+
+        //Ler a quantidade de operacoes que serao realizadas
+        quantidade = MyIO.readInt();
+
+        //Lendo os comandos das operacoes
+        do {
+            entrada2[contador] = MyIO.readLine();
+            contador++;
+        } while(contador < quantidade);
+
+        //Declarando a lista com um tamanho maior, pois precisa de mais espaco devido as insercoes (saudades de ser dinamico...)
+        ListaSequencial music = new ListaSequencial(100);
+
+        //Iniciar o relogio
         time.start();
-        //Organizar as musicas pelo nome
-        sortByQuickSort(music, 0, i - 1, 10);
+
+        //Criar as musicas pedidas
+        music = searchIdInReturnSequentialList(m, music, entrada, i);
+
+        //Tratar e executar os comandos
+        music = tratarComandos(entrada2, music, m, contador);
+
+        //Imprimir as informacoes da musica
+        music.mostrar();
         
-        //Imprimir as informacoes da musica agora ordenada
-        for (int m = 0; m < 10; m++) {
-            music[m].imprimir();
-        }
-        
-        //Parar o temporizador e fazer o log
+        ////Parar o temporizador e fazer o log
         time.stop();
-        //createLog(time);
+        createLog(time);
     }
 }
 

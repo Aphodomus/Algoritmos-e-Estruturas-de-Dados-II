@@ -482,6 +482,11 @@ public class TP02Q15 {
     }
 
     //Ordenar as musicas por meio do Selecao PARCIAL
+    /*parametros:
+        * music = objeto contendo as musicas que voce deseja ordenar
+        * n = inteiro que representa a quantidade de musicas que voce deseja ordenar
+        * k = a chave de referência, sendo por padrão 10
+    */
     public static void sortBySelectionPartial(Musica[] music, int n, int k) {
         Musica temp = new Musica();
         int menor = 0;

@@ -5,7 +5,6 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <err.h>
 
 //TIPO CELULA ===================================================================
 typedef struct Celula {
@@ -50,7 +49,7 @@ void inserir(int x) {
  */
 int remover() {
    if (primeiro == ultimo) {
-      errx(1, "Erro ao remover!");
+      printf("Erro ao remover, primeiro igual a ultimo");
    }
    Celula* tmp = primeiro;
    primeiro = primeiro->prox;

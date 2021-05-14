@@ -41,6 +41,51 @@ public class PilhaFlex {
         System.out.print("]");
     }
 
+    // Mostrar os elementos na mesma ordem da insercao
+    public void mostrarOrdemInseridos() {
+        System.out.print("[ ");
+        int contador = 0;
+
+        for (Celula i = topo; i != null; i = i.prox) {
+            //System.out.print(i.elemento + " ");
+            contador = contador + 1;
+        }
+
+        for (int i = contador; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                
+            }
+        }
+
+        System.out.print("]");
+    }
+
+    // Mostrar os elementos na ordem que serao removidos RECURSIVAMENTE
+    public void mostrarRecursivamente1() {
+        Celula tmp = topo;
+        showRecursive1(tmp);
+    }
+
+    public void showRecursive1(Celula tmp) {
+        if (tmp != null) {
+            System.out.println("\n" + tmp.elemento);
+            showRecursive1(tmp.prox);
+        }
+    }
+
+    // Mostrar os elementos na ordem que serao inseridos RECURSIVAMENTE
+    public void mostrarRecursivamente2() {
+        Celula tmp = topo;
+        showRecursive2(tmp);
+    }
+
+    public void showRecursive2(Celula tmp) {
+        if (tmp != null) {
+            showRecursive2(tmp.prox);
+            System.out.println("\n" + tmp.elemento);
+        }
+    }
+
     // Metodo que soma os elementos contidos na pilha
     public int somarConteudo() {
         int soma = 0;
@@ -84,20 +129,19 @@ public class PilhaFlex {
 
     // Metodo para retornar o maior elemento da pilha RECURSIVAMENTE
     public int maiorElementoRec() { // Chamada inicial do metodo recursivo
-        int maior = topo.elemento;
-        return maiorElementoRec(topo, maior);
+        return maiorElementoRec(topo);
     }
 
-    public int maiorElementoRec(Celula tmp, int maior) {
+    public int maiorElementoRec(Celula tmp) {
+        int maior = topo.elemento;
 
         if (tmp != null) {
+            maior = maiorElementoRec(tmp.prox);
             if (tmp.elemento > maior) {
                 maior = tmp.elemento;
             }
-            maiorElementoRec(tmp.prox, maior);
         }
 
         return maior;
     }
-
 }

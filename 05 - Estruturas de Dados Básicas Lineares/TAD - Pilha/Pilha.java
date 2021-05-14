@@ -61,7 +61,7 @@ class Pilha {
     // Mostrar os valores na pilha
     public void mostrar() {
         System.out.print("[");
-        for(int i = 0; i < posicaoPilha; i++){
+        for(int i = 0; i < posicaoPilha; i++) {
            System.out.print(pilha[i] + " ");
         }
         System.out.println("]");

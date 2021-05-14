@@ -101,7 +101,7 @@ class ListaDupla {
       } else if (pos == tamanho){
          inserirFim(x);
       } else {
-		   // Caminhar ate a posicao anterior a insercao
+		// Caminhar ate a posicao anterior a insercao
          CelulaDupla i = primeiro;
          for(int j = 0; j < pos; j++, i = i.prox);
 		
