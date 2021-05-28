@@ -257,7 +257,7 @@ void searchIdInFile(char id[][30], int numEntrada) {
 
     while (!feof(file) && i < FILE_LENGTH) {
         //Ler as linhas do arquivo
-        data = fgets(linha, 1000, file);
+        data = fgets(linha, 1000, file); // tem erro aqui
         
         //Tratar os dados, e coloca-los em uma linha
         dado_pre_tratado = processData(data);

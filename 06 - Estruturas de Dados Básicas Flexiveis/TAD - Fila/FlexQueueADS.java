@@ -12,5 +12,8 @@ public class FlexQueueADS {
         fila.inserir(5);
         fila.inserir(5);
         fila.mostrar();
+        fila.inserir(5);
+        fila.inserir(5);
+        fila.mostrar();
     }
 }
