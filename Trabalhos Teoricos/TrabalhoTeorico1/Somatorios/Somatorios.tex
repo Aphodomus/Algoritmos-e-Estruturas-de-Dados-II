@@ -1,0 +1,72 @@
+\documentclass[a4paper, 12pt, fleqn, leqno]{article}
+\usepackage[top=3.5cm, bottom=2.5cm,
+ left=3cm, right=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{cite}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{figure}[h!b]
+\centering \includegraphics[scale=2.5]{logopuc.jpg}
+\end{figure}
+
+\begin{center}
+{\Large \bf Pontifícia Universidade Católica de Minas Gerais} \\
+{\large \bf Trabalho Algoritmos e Estruturas de Dados II}
+
+\vspace{3 cm}
+
+{\Large \bf Resumo Somatório}
+
+\vspace{4.5 cm}
+
+{\Large \bf Daniel Vitor de Oliveira Santos}
+
+\vspace{6.5cm}
+
+{\large \bf Belo Horizonte \\ 2021}
+
+\end{center}
+	\section{Introdução}
+		Com frequência as fórmulas matemáticas requerem a adição de muitas
+variáveis. O somatório ou notação sigma é uma forma simples e 
+conveniente de abreviação usada para fornecer uma expressão concisa
+para a soma dos valores de uma variável, ou soma de parcelas. Um
+somatório é um simples processo de adicionar. A notação matemática utiliza um símbolo para representar de forma compacta o somatório de vários termos similares: o símbolo de somatório $\sum$, uma forma ampliada da letra grega maiúscula sigma. Ele é definido como:
+			\begin{flushleft}
+				$$ \sum_{i = m}^{n} x_{i} = x_{m} + x_{m+1} + x_{m+2} + \ldots + x_{n - 1} + x_{n}$$
+			\end{flushleft}
+			
+		Onde {\bf i} é o {\bf índice} da soma ; {\bf ${ x_{i}}$} é uma variável indexada que representa cada {\bf termo da soma}; {\bf m} é o {\bf índice inicial} (ou limite inferior), e {\bf n} é o {\bf índice final} (ou limite superior). O {\bf i = m} representa que o índice {\bf i} começa igual a {\bf m}. O índice {\bf i} é incrementado em uma unidade a cada termo, e terminando em {\bf i = n}
+		
+	\section{Propriedades básicas}
+		As propriedades do somatório facilitam o desenvolvimento de expressões algébricas com a notação do somatório. O principal objetivo é trabalhar a expressão até ela se tornar uma soma simples ou uma soma quadrada.
+		\begin{itemize}
+			\item Somatório de uma constante K
+			O somatório de uma constante é igual ao produto do numero de termos pela constante {\bf K}.
+			\begin{flushleft}
+				$$ \sum_{i = m}^{n} K = K + K + \ldots + K = K \cdot n$$
+			\end{flushleft}
+			\item Somatório do produto de uma constante por uma variável
+			O Somatório do produto de uma constante por uma variável é igual ao produto da constante pelo somatório da variável.
+			\begin{flushleft}
+				$$ \sum_{i = m}^{n} K \cdot x_{i} = K \cdot x_{i} + K \cdot x_{i + 1} + \ldots + K \cdot x_{n} = K \cdot \sum_{i = m}^{n} x_{i}$$
+			\end{flushleft}
+			\item Somatório de uma soma ou subtração de variáveis
+			O Somatório de uma soma ou subtração de variáveis é igual a soma ou subtração dos somatórios dessas variáveis, como:
+			\begin{flushleft}
+				$$ \sum_{i = m}^{n} (x_{i} \pm y_{i} \pm z_{i}) = \sum_{i = m}^{n} x_{i} \pm \sum_{i = m}^{n} y_{i} \pm \sum_{i = m}^{n} z_{i}$$
+			\end{flushleft}
+		\end{itemize}
+		
+	\section{Referências}
+	
+	PETERNELLI A., Luiz, (2003). "CAPÍTULO 1 - Conceitos Introdutórios". Disponível em: <http://www.dpi.ufv.br/~peternelli/inf162.www.16032004/materiais/CAPITULO1.pdf>. Acesso em: 17 fev 2021.\\
+	
+	Summation, In: WIKIPÉDIA. Disponível em: <https://en.wikipedia.org/wiki/Summation>. Acesso em: 17 fev 2021.
+	
+\end{document}

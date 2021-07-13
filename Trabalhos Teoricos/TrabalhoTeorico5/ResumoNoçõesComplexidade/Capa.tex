@@ -1,0 +1,86 @@
+\documentclass[a4paper, 12pt, fleqn, leqno]{article}
+\usepackage[top=3.5cm, bottom=2.5cm,
+ left=3cm, right=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{cite}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{figure}[h!b]
+\centering \includegraphics[scale=2.5]{logopuc.jpg}
+\end{figure}
+
+\begin{center}
+{\Large \bf Pontifícia Universidade Católica de Minas Gerais} \\
+{\large \bf Trabalho Algoritmos e Estruturas de Dados II}
+
+\vspace{3 cm}
+
+{\Large \bf Noções de complexidade}
+
+\vspace{4.5 cm}
+
+{\Large \bf Daniel Vitor de Oliveira Santos}
+
+\vspace{6.5cm}
+
+{\large \bf Belo Horizonte \\ 2021}
+
+\end{center}
+
+\section{Introdução}
+	
+		Dada a definição de um algoritmo como uma sequência de passos para chegar a uma solução, sabe-se que
+podem existir diversas, entretando precisamos medir aquela que será a melhor de todas em uma determi
+nada situação. Para isso, utilizamos a Complexidade de Algoritmos para projetar algoritmos eficientes
+e prever a quantidade de recursos que ele irá demandar a medida que o tamanho do problema cresce, principalmente
+o tempo de execução do algoritmo.
+
+\section{Análise de Algoritmos}
+		
+		Conta-se o número de operações relevantes realizadas por um algoritmo e expressa-se esse número
+como uma função de n. Essas operações podem ser comparações, operações aritméticas, movimento de dados, etc. Sobre a quantidade de recursos utilizados no algoritmo, podemos destacar três casos:
+
+			\begin{itemize}
+				{\item \bf Melhor caso:}  \\\\
+				É o menor custo possível na execução de um algoritmo, normalmente as funções de melhor caso
+podem ser delimitadas inferiormente usando a notação assintótica $\Omega$.
+				{\item \bf Pior caso:}  \\\\
+				Indica o maior tempo de execução de um algoritmo qualquer. A ordem de crescimento da complexidade de pior caso normalmente é usada pra compara a eficiência de dois algoritmos. O pior caso é comumente mais utilizado pois o tempo de execução dele estabelece um limite supeior para o tempo de execução para qualquer entrada, conhecê-lo nos garante que o algoritmo nunca demorará mais do que esse tempo esperado.
+				{\item \bf Caso médio:}  \\\\
+				É a quantidade de algum recurso computacional utilizado pelo algoritmo, numa média sobre todas as entradas possíveis.
+			\end{itemize}
+
+\section{Notações ${O}$, $\Omega$ e $\Theta$}
+		As propriedades do somatório facilitam o desenvolvimento das expressões algébricas, com o objetivo de chegar às somas simples ou somas de quadrados.
+			\begin{itemize}
+				{\item \bf Notação ${O}$:} \\\\
+				É dada quando temos apenas um {\bf limite assuntótico superior}. Para uma dada função $g(n)$, denotamos por ${O}(g(n))$ o conjunto de funções
+				\begin{center}
+					${O}(g(n)) = f(n):$ existem constantes positivas $c$ e $n_{0}$ tais que $0 \leq f(n) \leq cg(n)$ para todo $n \geq n_{0}$	
+				\end{center}
+				Usamos a notação ${O}$ para dar um limite supeior a uma função, dentro de um fator constante. Para todos os valores $n$ em $n_{0}$ ou à direita de $n_{0}$, o valor da função $f(n)$ está abaixo de $cg(n)$.
+				Com a notação ${O}$, podemos descrever frequentemente o tempo de execução de um algoritmo apenas inspecionando a estrutura global do algoritmo.
+			    
+				{\item \bf Notação $\Omega$:} \\\\
+				Da mesma maneira que a notação ${O}$ fornece um  limite assuntótico superior para uma funçao, a notação $\Omega$ nos dá um {\bf limite assintótico inferior}. Para uma dada função $g(n)$, denotamos por $\Omega(g(n))$ o conjunto de funções
+				\begin{center}
+					$\Omega(g(n)) = f(n):$ existem constantes positivas $c$ e $n_{0}$ tais que $0 \leq cg(n) \leq f(n)$ para todo $n \geq n_{0}$	
+				\end{center}
+				Para todos os valores $n$ em $n_{0}$ ou à direita de $n_{0}$, o valor de $f(n)$ encontra-se em $g(n)$ ou acima de $g(n)$.
+				{\item \bf Notação $\Theta$:} \\\\
+				A notação $\Theta$ fornece uma simbologia simplificada para representar um limite justo de desempenho para um algoritmo. Um limite exato de tempo que um algoritmo leva para ser executado. Ou seja, a notação $\Theta$ representa o {\bf ponto de encontro entre as notações} $\Omega$ (limite inferior) e Big ${O}$ (limite superior). Para uma dada função $g(n)$, denotamos por $\Theta(g(n))$ o conjunto de funções
+				\begin{center}
+					$\Theta(g(n)) = f(n):$ existem constantes positivas $c_{1}$, $c_{2}$ e $n_{0}$ tais que $0 \leq c_{1}g(n) \leq f(n) \leq c_{2}g(n)$ para todo $n \geq n_{0}$	
+				\end{center}
+				Uma função $f(n)$ pertence ao conjunto $\Theta(g(n))$ se existirem cosntantes positivas $c_{1}$ e $c_{2}$ tais que ela possa ser "encaixada" entre $c_{1}g(n)$ e $c_{2}g(n)$, para um valor de $n$ suficientemente grande.						
+
+			\end{itemize}
+
+
+\end{document}
+
